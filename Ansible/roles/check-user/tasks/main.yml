@@ -1,0 +1,15 @@
+---
+# tasks file for check-user
+- name: check unpriv
+  register: unpriv
+  shell: |
+   whoami
+
+- name: check priv
+  register: priv
+  become: yes
+  shell: |
+   whoami
+
+- debug: var=unpriv.stdout_lines
+- debug: var=priv.stdout_lines

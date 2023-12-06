@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Request</title>
+</head>
+
+<body>
+    <h2>Request a File</h2>
+
+    <!-- Link to request hardcoded file "name.html" -->
+    <a href="#" onclick="requestFile()">Request File</a>
+
+    <script>
+        function requestFile() {
+            // Hardcoded file name
+            var fileName = "name.html";
+
+            // Construct the URL with the hardcoded file name as a query parameter
+            var url = "getfile.php?file=" + encodeURIComponent(fileName);
+
+            // Load the new URL in the same tab
+            window.location.href = url;
+
+            // Prevent the default link behavior
+            return false;
+        }
+    </script>
+</body>
+
+</html>

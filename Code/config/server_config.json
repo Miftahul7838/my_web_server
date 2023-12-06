@@ -1,0 +1,28 @@
+{
+    "path":{
+        "web_root":"www",
+        "allowed_path":"/index.html, /name.html, ^/getfileBSL.phpBSL?file=.+, /submit"
+    },
+    "http_methods":{
+        "GET":{
+            "supported":"yes",
+            "has_body":"no"
+        },
+        "POST":{
+            "supported":"yes",
+            "has_body":"yes"
+        },
+        "PUT":{
+            "supported":"yes",
+            "has_body":"yes"
+        },
+        "DELETE":{
+            "supported":"yes",
+            "has_body":"no"
+        },
+        "HEAD":{
+            "supported":"yes",
+            "has_body":"no"
+        }
+    }
+}

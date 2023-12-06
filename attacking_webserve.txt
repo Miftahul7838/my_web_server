@@ -1,0 +1,9 @@
+NOTE: STILL WORKING ON THE ATTACK
+
+document: https://docs.google.com/document/d/1QFlbPeu8jqQAYRZJwbxQ8j22AMlquHW8ngWQntZDu6I/edit?usp=sharing
+
+The path that are allowed in the website are: 
+/index, 
+/getfile.php?file=name.html
+
+However, the second path is vulnerable to LFI or local file inclusion vulnerability. With this vulnerability you can see the users and other source code file for the webserver. Also, name.html takes in first name and last name. it is vulnerable to reflected XSS or cross-site scripting, and might be vulnerable to command injection.

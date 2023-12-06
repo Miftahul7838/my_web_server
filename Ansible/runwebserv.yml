@@ -1,0 +1,7 @@
+---
+- hosts: webserv
+  vars_files: passwords
+  gather_facts: no
+  roles:
+    - conntest
+    - check-user

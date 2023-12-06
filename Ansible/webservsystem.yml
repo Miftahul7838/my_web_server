@@ -1,0 +1,7 @@
+[webserv]
+192.168.200.84
+
+[webserv:vars]
+ansible_user=student
+ansible_password= {{ vault_password }}
+ansible_become_password= {{ vault_become_password }}
