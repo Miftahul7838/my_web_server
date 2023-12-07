@@ -1,5 +1,28 @@
 ---
-# tasks file for webserver
-- name: start webserver
-  register: webserv
+# tasks for webserver
+- name: install packages
+  become: yes
+  register: packages
+  apt:
+    name:
+      - wget
+      - git
+      - make
+      - clang
+      - build-essential
+      - zlib1g-dev
+      - cmake
+      - gcc
+      - libssl-dev
+      - iputils-ping
+      - findutils
+    state: present
+
+- name: Set up environment and build Python
+  become: yes
   shell: |
+    cd /opt/my_web_server/Code/bin/
+    ./webserver 127.0.0.1 80 &
+  register: python_build
+
+- debug: var=python_build.stdout_lines

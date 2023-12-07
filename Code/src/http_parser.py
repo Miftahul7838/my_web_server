@@ -43,7 +43,6 @@ def perform_action(http_req) -> str:
         if result[1] != None:
             start_line = result[1]
             method = start_line[0]
-            print(method)
             path = start_line[1]
             http_v = start_line[2]
             if result[2] != None:
@@ -52,11 +51,20 @@ def perform_action(http_req) -> str:
                     body = result[3]
                     if method == 'POST':
                         cont_len = int(fields.get('content-length'))
-                        get_resp = hp(path, cont_len, body)
-            # if method == 'GET':
-            get_resp = hg(path).get_file_cont()
-            method_resp_code = get_resp[0]
-            method_resp_body = get_resp[1]
+                        get_resp = hp(path, cont_len, body).welcome_user()
+                        method_resp_code = get_resp[0]
+                        method_resp_body = get_resp[1]
+                    elif method == "PUT":
+                        pass
+                if method == 'GET':
+                    get_resp = hg(path).get_file_cont()
+                    method_resp_code = get_resp[0]
+                    method_resp_body = get_resp[1]
+                elif method == "HEAD":
+                    pass
+                elif method == "DELETE":
+                    pass
+
     serv_resp = hsr(method_resp_code, http_v, method_resp_body).generate_response()
     return serv_resp
 

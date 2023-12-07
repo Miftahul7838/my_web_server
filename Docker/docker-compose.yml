@@ -1,0 +1,31 @@
+version: '3'
+services: #Services in the docker network
+  webserver: #webserver
+    build: ./webserver
+    networks:
+      proxynet:
+        ipv4_address: 172.16.1.2
+  https-proxy: #Apache reverse proxy
+    build: ./proxy_sec
+    volumes:
+      - ./proxy_sec/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+      - 443:443
+    networks:
+      proxynet:
+        ipv4_address: 172.16.1.3
+  modsecurity: #Modsecurity reverse proxy
+    image: owasp/modsecurity:apache
+    ports:
+      - 8080:443
+    environment:
+      - BACKEND=http://172.16.1.2:80
+      - PROXY_SSL=on
+    networks:
+      proxynet:
+        ipv4_address: 172.16.1.4
+networks: #Docker subnetwork
+  proxynet:
+    ipam:
+      config:
+        - subnet: 172.16.1.0/24

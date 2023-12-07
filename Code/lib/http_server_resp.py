@@ -12,6 +12,9 @@ class HttpServerResponse:
         serv_resp = self.__http_version 
         serv_resp += " " + str(self.__resp_code)
         serv_resp += " " + str(HttpServerResponse.STATUS_CODE.get(self.__resp_code)) + '\n'
+        tmp_body_list = self.__resp_body.split("\n")
+        if tmp_body_list[0].strip() == "<!DOCTYPE html>":
+            serv_resp += "\n"
         serv_resp += self.__resp_body
 
         return serv_resp

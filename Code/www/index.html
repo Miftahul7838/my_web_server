@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Request</title>
+    <title>Link Example</title>
 </head>
-
 <body>
-    <h2>Request a File</h2>
 
-    <!-- Link to request hardcoded file "name.html" -->
-    <a href="#" onclick="requestFile()">Request File</a>
+    <p>Click the link below to get welcomed!</p>
 
     <script>
-        function requestFile() {
-            // Hardcoded file name
-            var fileName = "name.html";
+        // Get the server's IP address dynamically
+        var serverIP = window.location.hostname;
+        var serverURL = 'http://' + serverIP + '/getfile.php?file=name.html';
 
-            // Construct the URL with the hardcoded file name as a query parameter
-            var url = "getfile.php?file=" + encodeURIComponent(fileName);
+        // Create a link with the dynamic URL
+        var link = document.createElement('a');
+        link.href = serverURL;
+        // link.target = '_blank';
+        link.textContent = 'Open new tab and connect to file';
 
-            // Load the new URL in the same tab
-            window.location.href = url;
-
-            // Prevent the default link behavior
-            return false;
-        }
+        // Append the link to the body
+        document.body.appendChild(link);
     </script>
-</body>
 
+</body>
 </html>

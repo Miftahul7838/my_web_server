@@ -93,12 +93,10 @@ def get_serv_resp(http_req) -> str:
     Args:
         http_req: the client http request
     """
-    print(http_req)
     cmd = f'echo "{http_req}" > httpReq.txt; ../src/http_parser.py httpReq.txt'
     p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     out = p.stdout.decode()
     err = p.stderr.decode()
-    print(err)
     
     # resp_code = int(out.split('\n')[0].split()[1])
     # resp = (resp_code, out)

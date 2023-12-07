@@ -1,5 +1,5 @@
 [webserv]
-192.168.200.84
+192.168.206.34
 
 [webserv:vars]
 ansible_user=student

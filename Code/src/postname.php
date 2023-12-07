@@ -1,3 +1,3 @@
 <?php
-    echo "Welcom " . $_POST['first'] . " " . $_POST['last'] . "!";
+    echo "Welcome " . $_POST['first'] . " " . $_POST['last'] . "!";
 ?>
