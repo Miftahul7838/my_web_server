@@ -1,5 +1,3 @@
-#!/usr/local/bin/python3.12
-
 import argparse
 import os, sys
 # Get the absolute path of the current script
@@ -94,7 +92,7 @@ def get_serv_resp(http_req) -> str:
         http_req: the client http request
     """
     print(http_req)
-    cmd = f'cd ../src/; echo "{http_req}" > httpReq.txt; ./http_parser.py httpReq.txt'
+    cmd = f'cd ../src/; echo "{http_req}" > httpReq.txt; python3 ./http_parser.py httpReq.txt'
     p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     out = p.stdout.decode()
     err = p.stderr.decode()

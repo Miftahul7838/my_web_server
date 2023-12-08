@@ -1,5 +1,3 @@
-#!/usr/local/bin/python3.12
-
 import os, sys, json
 # Get the absolute path of the current script
 current_script_dir = os.path.dirname(os.path.abspath(__file__))

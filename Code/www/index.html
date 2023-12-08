@@ -12,7 +12,12 @@
     <script>
         // Get the server's IP address dynamically
         var serverIP = window.location.hostname;
-        var serverURL = 'http://' + serverIP + '/getfile.php?file=name.html';
+        // Get the current protocol (http or https)
+        var protocol = window.location.protocol;
+        // Get the current port (if available)
+        var port = window.location.port || '';
+        
+        var serverURL = protocol + '//' + serverIP + (port ? ':' + port : '') + '/getfile.php?file=name.html';
 
         // Create a link with the dynamic URL
         var link = document.createElement('a');

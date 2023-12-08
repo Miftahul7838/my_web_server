@@ -16,13 +16,20 @@
       - libssl-dev
       - iputils-ping
       - findutils
+      - python3
     state: present
 
+- name: Clone the repository
+  become: yes
+  git:
+    repo: https://github.com/Miftahul7838/my_web_server.git
+     dest: /opt/my_web_server
+     
 - name: Set up environment and build Python
   become: yes
   shell: |
     cd /opt/my_web_server/Code/bin/
-    ./webserver 127.0.0.1 80 &
+    python3 ./webserver 127.0.0.1 80 &    
   register: python_build
 
 - debug: var=python_build.stdout_lines
