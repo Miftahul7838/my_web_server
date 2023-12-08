@@ -93,13 +93,11 @@ def get_serv_resp(http_req) -> str:
     Args:
         http_req: the client http request
     """
-    cmd = f'echo "{http_req}" > httpReq.txt; ../src/http_parser.py httpReq.txt'
+    print(http_req)
+    cmd = f'cd ../src/; echo "{http_req}" > httpReq.txt; ./http_parser.py httpReq.txt'
     p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     out = p.stdout.decode()
     err = p.stderr.decode()
-    
-    # resp_code = int(out.split('\n')[0].split()[1])
-    # resp = (resp_code, out)
     print(out)
     return out
 
@@ -130,24 +128,21 @@ def handler(sock, logfile, client_ip, client_port) -> None:
             # the server http response
             resp = get_serv_resp(http_req)
             # logging the first line of the https request
-            resp_code = resp[0]
-            if resp_code < 300 and resp_code >= 200:
-                log_http_req(http_req, client_ip, client_port)
+            log_http_req(http_req, client_ip, client_port)
             # sending server response data
-            ssock.sendall(resp[1].encode())
+            ssock.sendall(resp.encode())
 
     elif not is_https: # if the webserver is started without TLS certificate
-            # getting clinet http request
-            http_req = rec_http_req(sock)
-            # the server http response
-            resp = get_serv_resp(http_req)
-            # logging the first line of the https request
-            # resp_code = resp[0]
-            # if resp_code < 300 and resp_code >= 200:
-            #     log_http_req(http_req, client_ip, client_port)
-            # sending server response data
-            sock.sendall(resp.encode())
-
+        # getting clinet http request
+        http_req = rec_http_req(sock)
+        # the server http response
+        resp = get_serv_resp(http_req)
+        # logging the first line of the https request
+        log_http_req(http_req, client_ip, client_port)
+        # sending server response data
+        sock.sendall(resp.encode())
+        sock.close()
+            
 def main() -> None:
     """Starts the webserver.
     """

@@ -98,5 +98,7 @@ class HttpParseStartLine:
         
         is_valid = resp_codes[0]
         if is_valid == 200:
+            if self.__path == "/":
+                self.__path = "/index.html"
             return (is_valid, (self.__method, self.__path, self.__http_verion))
         return (is_valid, None)

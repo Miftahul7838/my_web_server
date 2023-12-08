@@ -11,13 +11,23 @@ class HttpServerResponse:
     def generate_response(self) -> str:
         serv_resp = self.__http_version 
         serv_resp += " " + str(self.__resp_code)
-        serv_resp += " " + str(HttpServerResponse.STATUS_CODE.get(self.__resp_code)) + '\n'
-        tmp_body_list = self.__resp_body.split("\n")
-        if tmp_body_list[0].strip() == "<!DOCTYPE html>":
-            serv_resp += "\n"
-        serv_resp += self.__resp_body
+        serv_resp += " " + str(HttpServerResponse.STATUS_CODE.get(self.__resp_code)) + "\n"
 
-        return serv_resp
+        if self.__resp_code < 299:
+            tmp_body_list = self.__resp_body.split("\n")
+            if tmp_body_list[0].strip() == "<!DOCTYPE html>":
+                serv_resp += "\n"
+            if self.__resp_body.split(" ")[0].strip() == "Welcome":
+                serv_resp += "\n"
+            
+            serv_resp += self.__resp_body
+
+            return serv_resp
+        else:
+            serv_resp += "\n" + str(HttpServerResponse.STATUS_CODE.get(self.__resp_code))
+        
+
+        return serv_resp.strip()
         
 
             

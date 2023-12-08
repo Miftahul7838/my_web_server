@@ -1,7 +1,6 @@
 from .http_method import HttpMethod
 import subprocess
 import subprocess
-import os
 
 class HttpPost(HttpMethod):
     
@@ -27,9 +26,36 @@ class HttpPost(HttpMethod):
         p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         out = p.stdout.decode()
         err = p.stderr.decode()
+        
         try:
+            file_cont = ""
             greet_user = out.split('\n')[-1].strip()
-            return (200, greet_user)
+            file_path = "../www/welcome.html"
+            with open(file_path, 'r') as file:
+                lines = file.readlines()
+
+            # Modify the line containing the header
+            header_line_index = None
+            for i, line in enumerate(lines):
+                if '<h1>' in line:
+                    header_line_index = i
+                    lines[header_line_index] = f'    <h1>{greet_user}</h1>\n'
+                    break
+
+            # Write the updated content back to the file
+            with open(file_path, 'w') as file:
+                file.writelines(lines)
+
+            with open(file_path) as file:
+                for line in file:
+                    file_cont += line
+            
+            cmd = "cat ../www/welcome.html"
+            p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            out = p.stdout.decode()
+            err = p.stderr.decode()
+
+            return (200, file_cont.strip())
         except:
             return (500, None)
 

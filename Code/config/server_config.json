@@ -1,7 +1,7 @@
 {
     "path":{
         "web_root":"www",
-        "allowed_path":"/index.html, /name.html, ^/getfileBSL.phpBSL?file=.+, /submit"
+        "allowed_path":"/index.html, /name.html, ^/getfileBSL.phpBSL?file=.+, /postname.php, /welcome.html"
     },
     "http_methods":{
         "GET":{
