@@ -15,6 +15,7 @@ from lib.http_client_req import HttpClientRequst as hcr
 from lib.http_server_resp import HttpServerResponse as hsr
 from lib.http_methods_actions.http_get import HttpGet as hg
 from lib.http_methods_actions.http_post import HttpPost as hp
+from lib.http_methods_actions.http_put import HttPPut as hpu
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -53,7 +54,9 @@ def perform_action(http_req) -> str:
                         method_resp_code = get_resp[0]
                         method_resp_body = get_resp[1]
                     elif method == "PUT":
-                        pass
+                        get_resp = hpu(path, body).insert_data()
+                        method_resp_code = get_resp[0]
+                        method_resp_body = get_resp[1]
                 if method == 'GET':
                     get_resp = hg(path).get_file_cont()
                     method_resp_code = get_resp[0]
