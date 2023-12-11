@@ -18,7 +18,6 @@ class HttpParseStartLine:
         else:
             self.__allowed_paths = loads(self.__tmp_path).get("allowed_path").replace('BSL',"\\").split(',')
         self.__allowed_paths = list(map(str.strip, self.__allowed_paths))
-
         self.__start_line = self.__start_line.split()
         self.__start_line_len = len(self.__start_line)
         if self.__start_line_len == 3:
@@ -48,7 +47,13 @@ class HttpParseStartLine:
         """
         match_found = any(re.match(pattern, uri) for pattern in self.__allowed_paths)
         if uri.startswith('/'):
-            if uri == '/' or match_found:
+            if self.__method == "PUT":
+                return True
+            elif self.__method == "DELETE":
+                return True
+            elif self.__method == "HEAD":
+                return True
+            elif uri == '/' or match_found:
                 return True
         return False
 

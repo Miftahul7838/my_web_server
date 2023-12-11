@@ -28,6 +28,73 @@
         // Append the link to the body
         document.body.appendChild(link);
     </script>
+    
+    <h2>you can check if a file exists or not after a PUT, HEAD, DELETE a file by going to /getfile?file=FILENAME</h2>
 
+    <p>Click the link below to put files</p>
+
+    <script>
+        // Get the server's IP address dynamically
+        var serverIP = window.location.hostname;
+        // Get the current protocol (http or https)
+        var protocol = window.location.protocol;
+        // Get the current port (if available)
+        var port = window.location.port || '';
+        
+        var serverURL = protocol + '//' + serverIP + (port ? ':' + port : '') + '/putfile.html';
+
+        // Create a link with the dynamic URL
+        var link = document.createElement('a');
+        link.href = serverURL;
+        // link.target = '_blank';
+        link.textContent = 'Click Here!';
+
+        // Append the link to the body
+        document.body.appendChild(link);
+    </script>
+
+    <p>Click the link below head files</p>
+
+    <script>
+        // Get the server's IP address dynamically
+        var serverIP = window.location.hostname;
+        // Get the current protocol (http or https)
+        var protocol = window.location.protocol;
+        // Get the current port (if available)
+        var port = window.location.port || '';
+        
+        var serverURL = protocol + '//' + serverIP + (port ? ':' + port : '') + '/headfile.html';
+
+        // Create a link with the dynamic URL
+        var link = document.createElement('a');
+        link.href = serverURL;
+        // link.target = '_blank';
+        link.textContent = 'Click Here!';
+
+        // Append the link to the body
+        document.body.appendChild(link);
+    </script>
+
+    <p>Click the link below delete files</p>
+
+    <script>
+        // Get the server's IP address dynamically
+        var serverIP = window.location.hostname;
+        // Get the current protocol (http or https)
+        var protocol = window.location.protocol;
+        // Get the current port (if available)
+        var port = window.location.port || '';
+        
+        var serverURL = protocol + '//' + serverIP + (port ? ':' + port : '') + '/deletefile.html';
+
+        // Create a link with the dynamic URL
+        var link = document.createElement('a');
+        link.href = serverURL;
+        // link.target = '_blank';
+        link.textContent = 'Click Here!';
+
+        // Append the link to the body
+        document.body.appendChild(link);
+    </script>
 </body>
 </html>

@@ -16,6 +16,8 @@ from lib.http_server_resp import HttpServerResponse as hsr
 from lib.http_methods_actions.http_get import HttpGet as hg
 from lib.http_methods_actions.http_post import HttpPost as hp
 from lib.http_methods_actions.http_put import HttPPut as hpu
+from lib.http_methods_actions.http_head import HttpHead as hhu
+from lib.http_methods_actions.http_delete import HttpDelete as hd
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -31,42 +33,54 @@ def parse_arguments() -> argparse.Namespace:
     return args
 
 def perform_action(http_req) -> str:
-    client_req = hcr(http_req)
-    result = client_req.is_valid_req()
-    ret_code = result[0]
-    http_v = ""
-    path = ""
-    method_resp_body = ""
-    method_resp_code = None
-    if ret_code == 200:
-        if result[1] != None:
-            start_line = result[1]
-            method = start_line[0]
-            path = start_line[1]
-            http_v = start_line[2]
-            if result[2] != None:
-                fields = result[2]
-                if result[3] != None:
-                    body = result[3]
-                    if method == 'POST':
-                        cont_len = int(fields.get('content-length'))
-                        get_resp = hp(path, cont_len, body).welcome_user()
+    try:
+        client_req = hcr(http_req)
+        result = client_req.is_valid_req()
+        ret_code = result[0]
+        http_v = ""
+        path = ""
+        method_resp_body = ""
+        method_resp_code = None
+        http_method = ""
+        if ret_code == 200:
+            if result[1] != None:
+                start_line = result[1]
+                method = start_line[0]
+                http_method = method
+                path = start_line[1]
+                http_v = start_line[2]
+                if result[2] != None:
+                    fields = result[2]
+                    if result[3] != None:
+                        body = result[3]
+                        if method == 'POST':
+                            cont_len = int(fields.get('content-length'))
+                            get_resp = hp(path, cont_len, body).welcome_user()
+                            method_resp_code = get_resp[0]
+                            method_resp_body = get_resp[1]
+                        elif method == "PUT":
+                            get_resp = hpu(path, body).insert_data()
+                            method_resp_code = get_resp[0]
+                            method_resp_body = get_resp[1]
+                    if method == 'GET':
+                        get_resp = hg(path).get_file_cont()
                         method_resp_code = get_resp[0]
                         method_resp_body = get_resp[1]
-                    elif method == "PUT":
-                        get_resp = hpu(path, body).insert_data()
+                    elif method == "HEAD":
+                        get_resp = hhu(path).get_file_head()
                         method_resp_code = get_resp[0]
                         method_resp_body = get_resp[1]
-                if method == 'GET':
-                    get_resp = hg(path).get_file_cont()
-                    method_resp_code = get_resp[0]
-                    method_resp_body = get_resp[1]
-                elif method == "HEAD":
-                    pass
-                elif method == "DELETE":
-                    pass
+                    elif method == "DELETE":
+                        get_resp = hd(path).delete_file()
+                        method_resp_code = get_resp[0]
+                        method_resp_body = get_resp[1]
+    except:
+        method_resp_body = "server error"
+        method_resp_code = 500
+        http_v = "HTTP/1.1"
+        http_method = None
 
-    serv_resp = hsr(method_resp_code, http_v, method_resp_body).generate_response()
+    serv_resp = hsr(method_resp_code, http_v, method_resp_body, http_method).generate_response()
     return serv_resp
 
 def main() -> str:

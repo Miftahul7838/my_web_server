@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUT Request Example</title>
+</head>
+<body>
+    <h2>File Details</h2>
+    <form id="putForm">
+        <label for="fileName">File Name:</label>
+        <input type="text" id="fileName" name="fileName" required>
+        <br>
+        <label for="fileContent">File Content:</label>
+        <textarea id="fileContent" name="fileContent" rows="4" required></textarea>
+        <br>
+        <button type="button" onclick="sendPutRequest()">Submit PUT Request</button>
+    </form>
+
+    <script>
+        function sendPutRequest() {
+            const fileName = document.getElementById('fileName').value;
+            const fileContent = document.getElementById('fileContent').value;
+
+            if (!fileName || !fileContent) {
+                alert('Please fill in both fields.');
+                return;
+            }
+
+            // Get the server's IP address dynamically
+            var serverIP = window.location.hostname;
+            // Get the current protocol (http or https)
+            var protocol = window.location.protocol;
+            // Get the current port (if available)
+            var port = window.location.port || '';
+
+            const url = protocol + '//' + serverIP + (port ? ':' + port : '') + `/${fileName}`;
+
+            fetch(url, {
+                method: 'PUT',
+                body: fileContent,
+                headers: {
+                    'Content-Type': 'text/plain'
+                    // You can add more headers if needed
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('PUT request successful:', data);
+            })
+            .catch(error => {
+                console.error('Error making PUT request:', error);
+            });
+        }
+    </script>
+</body>
+</html>

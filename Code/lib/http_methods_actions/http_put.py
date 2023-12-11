@@ -22,15 +22,12 @@ class HttPPut(HttpMethod):
         try:
             if ret_code == 200:
                 file_location = ful_path
-                with open(file_location,'rw') as file:
-                    for line in self.__data:
-                        file.writelines(line+"\n")
             else:
                 file_location = ful_path + self.__web_root + '/' + self.uri
-                os.system("touch " + file)
-                with open(file,'rw') as f:
-                    for line in self.__data:
-                        f.writelines(line+"\n")
+                
+            with open(file_location,'w') as f:
+                for line in self.__data:
+                    f.writelines(line+"\n")
 
             return (201, ful_path)
         except:

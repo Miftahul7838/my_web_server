@@ -3,10 +3,11 @@ class HttpServerResponse:
                    403:"Forbidden", 404:"Not Found", 411:"Length Required", 
                    500:"Internel Server Error", 501:"Not Implemented", 505:"HTTP Version Not Supported"}
 
-    def __init__(self, resp_code, http_version, resp_body=None) -> None:
+    def __init__(self, resp_code, http_version, resp_body, method) -> None:
         self.__resp_code = resp_code
         self.__http_version = http_version
         self.__resp_body = resp_body
+        self.__method = method
 
     def generate_response(self) -> str:
         serv_resp = self.__http_version 
@@ -17,8 +18,12 @@ class HttpServerResponse:
             tmp_body_list = self.__resp_body.split("\n")
             if tmp_body_list[0].strip() == "<!DOCTYPE html>":
                 serv_resp += "\n"
-            if self.__resp_body.split(" ")[0].strip() == "Welcome":
+            elif self.__resp_body.split(" ")[0].strip() == "Welcome":
                 serv_resp += "\n"
+            elif self.__method == "PUT":
+                serv_resp += '\n'
+            elif self.__method == "DELETE":
+                serv_resp += '\n'
             
             serv_resp += self.__resp_body
 

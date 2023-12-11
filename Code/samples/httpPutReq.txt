@@ -1,0 +1,17 @@
+PUT /example.txt HTTP/1.1
+Host: 127.0.0.1
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: http://127.0.0.1/putfile.html
+Content-Type: text/plain
+Content-Length: 24
+Origin: http://127.0.0.1
+DNT: 1
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+This is an example file.

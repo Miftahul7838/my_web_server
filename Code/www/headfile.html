@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEAD Request Example</title>
+</head>
+<body>
+    <h2>File Details</h2>
+    <form id="headForm">
+        <label for="fileName">File Name:</label>
+        <input type="text" id="fileName" name="fileName" required>
+        <br>
+        <button type="button" onclick="sendHeadRequest()">Submit HEAD Request</button>
+    </form>
+
+    <script>
+        function sendHeadRequest() {
+            const fileName = document.getElementById('fileName').value;
+
+            if (!fileName) {
+                alert('Please enter a file name.');
+                return;
+            }
+
+            // Get the server's IP address dynamically
+            var serverIP = window.location.hostname;
+            // Get the current protocol (http or https)
+            var protocol = window.location.protocol;
+            // Get the current port (if available)
+            var port = window.location.port || '';
+
+            const url = protocol + '//' + serverIP + (port ? ':' + port : '') + `/${fileName}`;
+
+            fetch(url, {
+                method: 'HEAD'
+                // No body is needed for a HEAD request
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // You can access headers from the response object
+                const headers = response.headers;
+                console.log('HEAD request successful. Headers:', headers);
+            })
+            .catch(error => {
+                console.error('Error making HEAD request:', error);
+            });
+        }
+    </script>
+</body>
+</html>
