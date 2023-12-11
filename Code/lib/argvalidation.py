@@ -6,8 +6,15 @@ import ipaddress
 from json import loads
 
 class ArgValidation(Action):
+    """class for validating argument for the terminals based tools"""
     
     def __valid_ip_format(self, ip) -> bool:
+        """Checks if the ip is valid or not
+
+        Returns:
+            True: if the ip is valid
+            False: if the ip is not valid
+        """
         try:
             ipaddress.ip_address(ip)
             return True
@@ -15,6 +22,12 @@ class ArgValidation(Action):
             return False
     
     def __ip_reachable(self, ip) -> bool:
+        """Checks if the ip is reachable or not
+
+        Returns:
+            True: if the ip is reachable
+            False: if the ip is not reachable
+        """
         try:
         # Run the ping command and capture the output
             response = os.system(f"ping -c 1 {ip}")  # On Windows, replace '-c' with '-n'
@@ -26,6 +39,13 @@ class ArgValidation(Action):
             return False  # An error occurred, IP address is not reachable
     
     def __valid_ip(self, ip, parser) -> None:
+        """Checks if the ip is reachable and valid or not
+
+        Returns:
+            True: if the ip is reachable and valid
+            False: if the ip is not reachable and valid
+        """
+
         if self.__valid_ip_format(ip):
             if not self.__ip_reachable(ip):
                 parser.error(f"{ip} is not reachable!")
@@ -35,6 +55,12 @@ class ArgValidation(Action):
             parser.error(f"{ip} not valid IP format")      
 
     def __valid_port_range(self, port, parser) -> bool:
+        """Checks if port range is valid
+
+        Returns:
+            True: if the port is valid
+            False: if the port is not valid
+        """
         port = int(port)
         if port == 80 or port == 443:
             return port
@@ -72,6 +98,8 @@ class ArgValidation(Action):
         return http_req_str
 
     def __call__(self, parser: ArgumentParser, namespace: Namespace, values: str | Sequence[Any] | None, option_string: str | None = None) -> None:
+        """calls all the validating function
+        """
         
         the_option = self.dest
         option_value = values

@@ -20,6 +20,11 @@ from lib.http_methods_actions.http_head import HttpHead as hhu
 from lib.http_methods_actions.http_delete import HttpDelete as hd
 
 def parse_arguments() -> argparse.Namespace:
+    """Parse the terminal argument to this program
+
+    Return:
+        args: the arguments that are passed to this tool
+    """
     parser = argparse.ArgumentParser(
         description="Returns https response according to a http request"
         )
@@ -33,6 +38,11 @@ def parse_arguments() -> argparse.Namespace:
     return args
 
 def perform_action(http_req) -> str:
+    """parse the http request
+
+    Return:
+        serv_resp: server response to the specific request
+    """
     try:
         client_req = hcr(http_req)
         result = client_req.is_valid_req()

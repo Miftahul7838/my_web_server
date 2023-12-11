@@ -1,15 +1,24 @@
 class HttpServerResponse:
+    """Server response"""
+
+
     STATUS_CODE = {200:"OK", 201:"Created", 400:"BAD REQUEST", 
                    403:"Forbidden", 404:"Not Found", 411:"Length Required", 
                    500:"Internel Server Error", 501:"Not Implemented", 505:"HTTP Version Not Supported"}
 
     def __init__(self, resp_code, http_version, resp_body, method) -> None:
+        """initiates the instance for this class"""
         self.__resp_code = resp_code
         self.__http_version = http_version
         self.__resp_body = resp_body
         self.__method = method
 
     def generate_response(self) -> str:
+        """Generates server responsne based on the response code and body
+
+        Return:
+            serv_resp: server response
+        """
         serv_resp = self.__http_version 
         serv_resp += " " + str(self.__resp_code)
         serv_resp += " " + str(HttpServerResponse.STATUS_CODE.get(self.__resp_code)) + "\n"

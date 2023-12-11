@@ -1,4 +1,6 @@
-usage: webserver.py [-h] [--cert CERT] [--key KEY] IP PORT
+<pre>
+'''
+usage: python3 webserver.py [-h] [--cert CERT] [--key KEY] IP PORT
 
 A http(s) webserver
 
@@ -15,6 +17,8 @@ Optional argument:
   --cert CERT  The certificate file
   --key KEY    Corresponding key file of the certificate
 
-Use "./webserver.py IP PORT --cert example.pem --key example.key" to start the webserver with TLS 
-  -OR- 
-Use "./webserver.py IP PORT" to start the webser without TLS
+Use "python3 ./webserver.py IP PORT --cert example.pem --key example.key" to start the webserver with TLS 
+-OR- 
+Use "python3 ./webserver.py IP PORT" to start the webser without TLS
+'''
+</pre>

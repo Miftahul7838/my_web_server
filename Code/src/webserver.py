@@ -28,8 +28,8 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="A http(s) webserver",
         epilog="""
-        Use "./webserver.py IP PORT --cert example.pem --key example.key" to start the webserver with TLS -OR-
-        Use "./webserver.py IP PORT" to start the webser without TLS
+        Use "python3 ./webserver.py IP PORT --cert example.pem --key example.key" to start the webserver with TLS -OR-
+        Use "python3 ./webserver.py IP PORT" to start the webser without TLS
         """
     )
     # adding argument to the parser that can be used with this script

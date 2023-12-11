@@ -3,9 +3,12 @@ from .http_request_parser.http_parse_field import HttpParseField as HPF
 from .http_request_parser.http_parse_body import HttpParseBody as HPB
 
 class HttpClientRequst:
+    """Parse the HTTP client request"""
+
     HTTP_METHODS = None
 
     def __init__(self, http_request:str) -> None:
+        """Initiates the instance for this class"""
         self.__req_str = http_request
         self.__start_line = ""
         self.__field_line = ""
@@ -34,6 +37,12 @@ class HttpClientRequst:
                     self.__has_body = True
 
     def is_valid_req(self) -> tuple:
+        """Checks to see if the request is valid or not
+        
+        Return:
+            (return code, startline, fieldline, bodyline): server return code and then
+                                                           whatever line it is valid up to
+        """
         ret_code = None
         try:
             start_line = HPS(self.__start_line)

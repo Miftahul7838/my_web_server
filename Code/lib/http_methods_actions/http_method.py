@@ -3,6 +3,7 @@ from json import loads
 import os
 
 class HttpMethod:
+    """parent class for all the other methods"""
 
     def __init__(self, uri) -> None:
         self.uri = uri
@@ -16,6 +17,11 @@ class HttpMethod:
             self.__web_root = loads(str(os.environ.get('WEB_ROOT').replace("'",'"'))).get('web_root')
 
     def __get_web_root_path(self) -> str:
+        """Gets the webroot of the webserver
+        
+        Returns:
+            file_path: the path where the webroot is located
+        """
         file_path = ""
         cmd = "pwd"
         p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
@@ -28,6 +34,13 @@ class HttpMethod:
         return file_path
 
     def file_exists_in_webroot(self) -> tuple:
+        """Checks if the file exits in the webroot
+
+        
+        Returns:
+        (response code, file_path): response code and filepath based on if
+                                        it was able to find the file or not
+        """
         file_path = self.__get_web_root_path()
         absolute_file_path = file_path + self.__web_root + '/'
         cmd = f'find {absolute_file_path} -name "{self.req_file}" | grep -e "{self.req_file}"'

@@ -3,13 +3,21 @@ import subprocess
 import subprocess
 
 class HttpPost(HttpMethod):
+    """Post data to the server"""
     
     def __init__(self, uri, cont_len, body:dict) -> None:
+        """initiates the instance for this class"""
         super().__init__("")
         self.__body = body.strip()
         self.__cont_len = cont_len
 
     def welcome_user(self) -> str:
+        """Posts data from body of the post request
+        
+        Returns:
+        (response code, response body): response code and body based on if
+                                        it was able to post the data or not
+        """
         cmd = (
             'export GATEWAY_INTERFACE="CGI/1.1";'
             'export SCRIPT_FILENAME="./postname.php";'

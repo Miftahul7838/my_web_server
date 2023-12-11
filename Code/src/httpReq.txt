@@ -6,7 +6,7 @@ Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
 DNT: 1
 Connection: keep-alive
-Referer: http://127.0.0.1/index.html
+Referer: http://127.0.0.1/
 Sec-Fetch-Dest: image
 Sec-Fetch-Mode: no-cors
 Sec-Fetch-Site: same-origin
